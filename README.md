@@ -1,15 +1,17 @@
 # materialize_layout
->**it's a WIP**
+>**It's a WIP, *John Doe***
 
-Twig layout for materialize framework.
+Twig layout for [materialize framework](https://materializecss.com/) based on a [form_div_layout.html.twig](https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig) of [symfony](https://symfony.com/).
 
-## HTML input
+## Structure
 
 ### @form
 `<form>` is contained in a `<div class="row">`
 
 ### @row
 Any line in form is contained in a `<div class="input-field">`
+
+## HTML input
 
 ### @input field
 
@@ -89,4 +91,40 @@ Autocomplete is available via `form_row(form.input, {'autocomplete': 'true'})`
 * chips?
 
 ## Need to update?
-[Just push your's code like this](https://chris.beams.io/posts/git-commit/)
+Thanks for taking the time to contribute.
+* Fork and clone
+```
+# Clone your fork of the repo into the current directory
+git clone https://github.com/<your-username>/materialize_layout.git
+# Navigate to the newly cloned directory
+cd materialize_layout
+# Assign the original repo to a remote
+git remote add trackedStream https://github.com/bouteillerAlan/materialize_layout.git
+```
+* Checkout 
+```
+git checkout master
+git pull trackedStream master
+```
+* Create a new topic branch
+```
+git checkout -b <branch>
+```
+* Code, coffee, commit
+
+[a good commit](https://chris.beams.io/posts/git-commit/)
+
+[a good coffee](https://coffeeordie.com/good-coffee-bad-places-evan-hafer/)
+
+[a good code](https://idratherbewriting.com/images/rtfmtractor.jpg)
+* Merge/Rebase the trackedStream dev branch in the topic branch
+```
+git pull [--rebase] trackedStream master
+```
+* Push
+```
+git push origin <branch>
+```
+* Open a pull request with a clear title and description
+
+[Like this](https://help.github.com/articles/about-pull-requests/)
