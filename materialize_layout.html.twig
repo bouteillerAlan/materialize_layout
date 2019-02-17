@@ -2,7 +2,7 @@
 {# Work with materialize 1.0.0 #}
 {% extends 'form_div_layout.html.twig' %}
 
-{# form #}
+{# @form #}
 {# put the form in the div.row #}
 {% block form_start %}
     <div class="row">
@@ -14,7 +14,7 @@
     </div>
 {% endblock form_end %}
 
-{# row #}
+{# @row #}
 {# put the row in the div.input-field #}
 {% block form_row %}
         <div class="input-field">
@@ -32,14 +32,17 @@
     </div>
 {% endblock checkbox_row %}
 
-{# widget #}
+{# @widget #}
 {# @input #}
 {% block form_widget_simple %}
     {% if type is not defined or type not in ['file', 'range', 'hidden'] %}
+        {% set attr = attr|merge({class: (attr.class|default('validate'))|trim}) %}
         {% if prefix is defined %}
             <i class="material-icons prefix">{{ prefix }}</i>
         {% endif %}
-        {% set attr = attr|merge({class: (attr.class|default('validate'))|trim}) %}
+        {% if autocomplete is defined and autocomplete == 'true' %}
+            {% set attr = attr|merge({class: (attr.class|default('') ~ ' autocomplete')|trim}) %}
+        {% endif %}
         {% if errors|length > 0 %}
             {% set attr = attr|merge({class: (attr.class|default('') ~ ' invalid')|trim}) %}
         {% endif %}

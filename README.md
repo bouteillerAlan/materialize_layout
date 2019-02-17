@@ -47,6 +47,19 @@ The text in the button is defined by the label
 
 If you use `{'type': 'file'}` the content of your row is replace by the right code
 
+### @range input
+Actually the min and max value is given via `'attr': {'type': 'value'}`, in the future I would want to make it automatically via the _validator_
+
+The label row is generated with a class and the range too (if you need to ajust them) :
+```html
+<div class="range_label">
+    _label_
+</div>
+<div class="range_content">
+    _range_
+</div>
+```
+
 ## materialize components
 ### @character counter
 [If you need to activate them](https://materializecss.com/text-inputs.html)
@@ -62,24 +75,16 @@ in my validator i have :
     min: 4
 ```
 the character counter is up to max = 50
-### @range input
-Actually the min and max value is given via `'attr': {'type': 'value'}`, in the future I would want to make it automatically via the _validator_
+### @autocomplete
+[If you need to activate them](https://materializecss.com/autocomplete.html)
 
-The label row is generated with a class and the range too (if you need to ajust them) :
-```html
-<div class="range_label">
-    _label_
-</div>
-<div class="range_content">
-    _range_
-</div>
-```
+Autocomplete is available via `form_row(form.input, {'autocomplete': 'true'})`
+
 ## TODO
 * switches
 * radio
 * select
 * date/time pickers
-* Autocomplete
 * buttons
 * chips?
 
