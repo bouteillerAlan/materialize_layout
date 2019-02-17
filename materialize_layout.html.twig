@@ -1,0 +1,117 @@
+{# Based on div layout #}
+{# Work with materialize 1.0.0 #}
+{% extends 'form_div_layout.html.twig' %}
+
+{# form #}
+{# put the form in the div.row #}
+{% block form_start %}
+    <div class="row">
+    {{ parent() }}
+{% endblock form_start %}
+
+{% block form_end %}
+    {{ parent() }}
+    </div>
+{% endblock form_end %}
+
+{# row #}
+{# put the row in the div.input-field #}
+{% block form_row %}
+        <div class="input-field">
+            {{ form_widget(form) }}
+            {% if type is not defined or type not in ['file', 'range', 'hidden'] %}
+                {{ form_label(form) }}
+                {{ form_errors(form) }}
+            {% endif %}
+        </div>
+{% endblock form_row %}
+
+{% block checkbox_row -%}
+    <div class="input-field">
+        {{ form_widget(form) }}
+    </div>
+{% endblock checkbox_row %}
+
+{# widget #}
+{# @input #}
+{% block form_widget_simple %}
+    {% if type is not defined or type not in ['file', 'range', 'hidden'] %}
+        {% if prefix is defined %}
+            <i class="material-icons prefix">{{ prefix }}</i>
+        {% endif %}
+        {% set attr = attr|merge({class: (attr.class|default('validate'))|trim}) %}
+        {% if errors|length > 0 %}
+            {% set attr = attr|merge({class: (attr.class|default('') ~ ' invalid')|trim}) %}
+        {% endif %}
+        {% if attr.maxlength is defined %}
+            {% set attr = attr|merge({'data-length': attr.maxlength}) %}
+        {% endif %}
+        {{ parent() }}
+    {% elseif type == 'file' %}
+        {% set label = name|humanize %}
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
+                <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+    {% elseif type == 'range' %}
+        {{ block('range_widget') }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+    {% if help is not empty or help_error is defined or help_success is defined %}
+        <span class="helper-text"
+            {% if help_error is defined %}
+                data-error="{{ help_error }}"
+            {% endif %}
+            {% if help_success is defined %}
+                  data-success="{{ help_success }}">
+            {% endif %}
+            {% if help is defined %}
+                {{ help }}
+            {% endif %}
+        </span>
+    {% endif %}
+{% endblock form_widget_simple %}
+
+{# @textarea #}
+{% block textarea_widget %}
+    {% if prefix is defined %}
+        <i class="material-icons prefix">{{ prefix }}</i>
+    {% endif %}
+    {% set attr = attr|merge({class: (attr.class|default('materialize-textarea validate'))|trim}) %}
+    {% if errors|length > 0 %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' invalid')|trim}) %}
+    {% endif %}
+    {{ parent() }}
+{% endblock textarea_widget %}
+
+{# @checkbox #}
+{% block checkbox_widget %}
+    {% set label = name|humanize %}
+    <p>
+        <label>
+            <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}/>
+            <span>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
+        </label>
+    </p>
+{% endblock checkbox_widget %}
+
+{# @range #}
+{% block range_widget %}
+    {% if prefix is defined %}
+        <i class="material-icons prefix">{{ prefix }}</i>
+    {% endif %}
+    <div class="range_label">
+        {{ form_label(form) }}
+    </div>
+    <div class="range_content">
+        <p class="range-field">
+            <input type="range" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %} />
+        </p>
+    </div>
+{% endblock range_widget %}
